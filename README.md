@@ -6,5 +6,7 @@ Listado
 | Francisco | Gomez-Caldito | rcngc1908 |
 | Marco | Stiehl | marcostiehlcv |
 |Christian|Morales Duran|christian\_47791|
+|Natalia| Laguna Marin|Xira21|
+| Jose | Marcos | JoseMarcos23 |
 | Víctor | León | Víctor |
 
