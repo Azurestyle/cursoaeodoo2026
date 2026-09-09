@@ -1,5 +1,9 @@
 Listado
 
-| Nombre | Apellido | Discord |
-| --- | --- | --- |
-| Nacho | Serra Almenar | nachoserra_domatix |
+|Nombre|Apellido|Discord|
+|-|-|-|
+|Nacho|Serra Almenar|nachoserra\_domatix|
+|Christian|Morales Duran|christian\_47791|
+
+
+
