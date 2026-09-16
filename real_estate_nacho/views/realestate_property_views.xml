@@ -15,4 +15,49 @@
     </field>
 </record>
 
+<record id="realestate_property_list_view" model="ir.ui.view">
+    <field name="name">realestate.property.list</field>
+    <field name="model">realestate.property</field>
+    <field name="arch" type="xml">
+        <list string="Properties" multi_edit="1">
+            <field name="reference" optional="show"/>
+            <field name="name" optional="show"/>
+            <field name="description" optional="hide"/>
+            <field name="price" optional="show"/>
+            <field name="availability" widget="boolean_toggle" optional="show"/>
+            <field name="user_id" widget="many2one_avatar_user" optional="show"/>
+        </list>
+    </field>
+</record>
+
+<record id="realestate_property_form_view" model="ir.ui.view">
+    <field name="name">realestate.property.form</field>
+    <field name="model">realestate.property</field>
+    <field name="arch" type="xml">
+        <form string="Property">
+            <sheet>
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" placeholder="Property Name"/>
+                    </h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="reference"/>
+                        <field name="price"/>
+                    </group>
+                    <group>
+                        <field name="availability" widget="boolean_toggle"/>
+                        <field name="user_id" widget="many2one_avatar_user"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Information">
+                        <field name="description"/>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+    </field>
+</record>
 </odoo>
