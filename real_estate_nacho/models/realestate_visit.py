@@ -32,3 +32,15 @@ class RealEstateVisit(models.Model):
         string="State",
         default="draft",
     )
+
+    def action_schedule(self):
+        self.state = "scheduled"
+
+    def action_done(self):
+        self.state = "done"
+    
+    def action_cancel(self):
+        self.state = "canceled"
+    
+    def action_draft(self):
+        self.state = "draft"
