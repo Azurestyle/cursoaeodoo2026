@@ -4,6 +4,9 @@
     <menuitem id="realestate_menu_properties" name="Properties" parent="realestate_menu_root" action="realestate_property_action"/>
 
     <menuitem id="realestate_menu_visits" name="Visits" parent="realestate_menu_root" action="realestate_visit_action"/>
+    <menuitem id="realestate_menu_offers" name="Offers" parent="realestate_menu_root" action="realestate_offer_action"/>
+    <menuitem id="realestate_menu_categories" name="Categories" parent="realestate_menu_root" action="realestate_category_action"/>
+    <menuitem id="realestate_menu_contracts" name="Contracts" parent="realestate_menu_root" action="realestate_contract_action"/>
     <!-- <menuitem id="realestate_menu_root" name="Real Estate">
         <menuitem id="realestate_menu_properties" name="Properties" action="realestate_property_action"/>
     </menuitem> -->

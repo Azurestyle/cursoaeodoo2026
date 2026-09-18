@@ -6,6 +6,10 @@ class RealEstateProperty(models.Model):
 
     name = fields.Char(string="Name", required=True)
     description = fields.Text(string="Description")
+    category_id = fields.Many2one(
+        comodel_name="realestate.category",
+        string="Category",
+    )
     price = fields.Float(string="Price")
     reference = fields.Char(string="Reference")
     availability = fields.Boolean(string="Availability", default=True)
