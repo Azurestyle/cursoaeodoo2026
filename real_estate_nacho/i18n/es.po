@@ -173,8 +173,9 @@ msgstr "Fecha de finalización"
 msgid ""
 "Fill in the details of the offer you want to add, such as the property, "
 "partner, and price."
-msgstr "Rellene los detalles de la oferta que desea añadir, como la propiedad,"
-"el contacto y el precio. "
+msgstr ""
+"Rellene los detalles de la oferta que desea añadir, como la propiedad, el "
+"contacto y el precio."
 
 #. module: real_estate_nacho
 #: model_terms:ir.actions.act_window,help:real_estate_nacho.realestate_property_action
