@@ -21,7 +21,7 @@ class RealEstateVisit(models.Model):
         comodel_name="res.users",
         string="User",
     )
-
+    phone = fields.Char(string="Phone", related="partner_id.phone", readonly=False, store=True)
     state = fields.Selection(
         selection=[
             ("draft", "Draft"),
@@ -31,10 +31,15 @@ class RealEstateVisit(models.Model):
         ],
         string="State",
         default="draft",
+        group_expand="_group_expand_state"
     )
+
+    def _group_expand_state(self, states, domain):
+        return ["draft", "scheduled", "done", "canceled"]
 
     def action_schedule(self):
         self.state = "scheduled"
+        #self.write({'state': 'scheduled'})
 
     def action_done(self):
         self.state = "done"

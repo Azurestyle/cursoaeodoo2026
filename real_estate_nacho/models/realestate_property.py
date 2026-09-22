@@ -31,3 +31,21 @@ class RealEstateProperty(models.Model):
     
     def _read_group_stage_ids(self, stages, domain):
         return self.env['realestate.property.stage'].search([], order='sequence')
+    
+    def action_create_visit(self):
+        vals = {
+            'property_id': self.id,
+            'date': fields.Datetime.now(),
+            'user_id': self.user_id.id
+        }
+        self.env['realestate.visit'].create(vals)
+    
+    def action_accept_best_offer(self):
+        best_offer = self.env['realestate.offer'].search([('property_id', '=', self.id),('state', '=', 'sent')], order='amount desc', limit=1)
+        if best_offer:
+            best_offer.action_accept()
+
+    def action_delete_refused_offers(self):
+        refused_offers = self.env['realestate.offer'].search([('property_id', '=', self.id),('state', '=', 'refused')])
+        refused_offers.unlink()
+            

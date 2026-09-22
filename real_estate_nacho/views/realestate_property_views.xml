@@ -39,6 +39,9 @@
         <form string="Property">
         <header>
             <button name="action_reserve" string="Reserve" invisible="not availability" type="object" class="btn-primary"/>
+            <button name="action_create_visit" string="Create Visit" type="object" class="btn-secondary"/>
+            <button name="action_accept_best_offer" class="btn-secondary" string="Accept Best Offer" type="object" />
+            <button name="action_delete_refused_offers" class="btn-danger" string="Delete Refused Offers" type="object" />
             <field name="stage_id" widget="statusbar"/>
         </header>
             <sheet>

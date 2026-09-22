@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 class RealEstateContract(models.Model):
     _name = "realestate.contract"
@@ -39,6 +39,28 @@ class RealEstateContract(models.Model):
         string="State",
         default='draft'
     )
+
+    duration_days = fields.Integer(string="Duration (Days)", 
+        compute="_compute_duration_days",
+        store=True)
+
+    days_to_end = fields.Integer(string="Days to End", 
+        compute="_compute_days_to_end")
+
+    @api.depends('start_date', 'end_date')
+    def _compute_duration_days(self):
+        for record in self:
+            if record.start_date and record.end_date:
+                record.duration_days = (record.end_date - record.start_date).days
+            else:
+                record.duration_days = 0
+    
+    def _compute_days_to_end(self):
+        for record in self:
+            if record.end_date:
+                record.days_to_end = (record.end_date - fields.Date.today()).days
+            else:
+                record.days_to_end = 0
 
     def action_draft(self):
         self.state = 'draft'
