@@ -46,6 +46,23 @@ class RealEstateContract(models.Model):
 
     days_to_end = fields.Integer(string="Days to End", 
         compute="_compute_days_to_end")
+    
+    days_in_progress = fields.Integer(string="Days in Progress", 
+        compute="_compute_days_in_progress")
+
+    has_deposit = fields.Boolean(string="Has Deposit", compute="_compute_has_deposit", store=True)
+
+    def _compute_days_in_progress(self):
+        for record in self:
+            if record.start_date and record.state == 'progress':
+                record.days_in_progress = (fields.Date.today() - record.start_date).days
+            else:
+                record.days_in_progress = 0
+
+    @api.depends('deposit')
+    def _compute_has_deposit(self):
+        for record in self:
+            record.has_deposit = record.deposit > 0
 
     @api.depends('start_date', 'end_date')
     def _compute_duration_days(self):

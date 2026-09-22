@@ -18,6 +18,7 @@
             <field name="partner_id"/>
             <field name="start_date"/>
             <field name="end_date"/>
+            <field name="days_in_progress"/>
             <field name="rent"/>
             <field name="deposit"/>
             <field name="state" optional="show"/>
@@ -49,6 +50,7 @@
                  <field name="partner_id"/>
                  <field name="contract_type"/>
                  <field name="property_id"/>
+                 <field name="has_deposit"/>
                 </group>
 
                 <group>
@@ -56,6 +58,7 @@
                     <field name="end_date"/>
                     <field name="duration_days"/>
                     <field name="days_to_end"/>
+                    <field name="days_in_progress"/>
                     <field name="rent"/>
                     <field name="deposit"/>
                 </group> 

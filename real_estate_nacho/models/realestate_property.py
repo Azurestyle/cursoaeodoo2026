@@ -48,4 +48,11 @@ class RealEstateProperty(models.Model):
     def action_delete_refused_offers(self):
         refused_offers = self.env['realestate.offer'].search([('property_id', '=', self.id),('state', '=', 'refused')])
         refused_offers.unlink()
-            
+
+    def action_create_offer(self):
+        vals = {
+            'property_id': self.id,
+            'amount': self.price,
+        }
+        offer = self.env['realestate.offer'].create(vals)
+        offer.action_send()

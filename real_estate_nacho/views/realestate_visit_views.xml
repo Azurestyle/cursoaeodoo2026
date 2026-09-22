@@ -51,6 +51,7 @@
                         <field name="date"/>
                         <field name="partner_id"/>
                         <field name="phone"/>
+                        <field name="personal_email"/>
                     </group>
                 </group>
                 </sheet>
