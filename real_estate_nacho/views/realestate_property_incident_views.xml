@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+<record id="realestate_property_incident_action" model="ir.actions.act_window">
+    <field name="name">Property Incidents</field>
+    <field name="res_model">realestate.property.incident</field>
+    <field name="view_mode">list,form</field>
+</record>
+
+<record id="realestate_property_incident_simple_view" model="ir.ui.view">
+    <field name="name">realestate.property.incident.simple.list</field>
+    <field name="model">realestate.property.incident</field>
+    <field name="priority" eval="99"/>
+    <field name="arch" type="xml">
+        <list string="Incidents" editable="bottom">
+            <field name="sequence" widget="handle"/>
+            <field name="name"/>
+            <field name="date"/>
+            <field name="priority" widget="priority"/>
+            <field name="user_id" domain="[('share', '=', False)]" options="{'no_create': True}"/>
+            <field name="state" readonly="1" widget="badge" decoration-info="state == 'draft'" decoration-warning="state == 'in_progress'" decoration-success="state == 'done'" decoration-danger="state == 'canceled'"/>
+        </list>
+    </field>
+</record>
+
+<record id="realestate_property_incident_list_view" model="ir.ui.view">
+    <field name="name">realestate.property.incident.list</field>
+    <field name="model">realestate.property.incident</field>
+    <field name="arch" type="xml">
+        <list string="Incidents">
+            <field name="date"/>
+            <field name="name"/>
+            <field name="property_id"/>
+            <field name="priority" widget="priority"/>
+            <field name="user_id"/>
+            <field name="state"/>
+        </list>
+    </field>
+</record>
+
+<record id="realestate_property_incident_form_view" model="ir.ui.view">
+    <field name="name">realestate.property.incident.form</field>
+    <field name="model">realestate.property.incident</field>
+    <field name="arch" type="xml">
+        <form string="Property Incident">
+            <header>
+                <field name="state" widget="statusbar"/>
+            </header>
+            <sheet>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="property_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="user_id" domain="[('share', '=', False)]"/>
+                    </group>
+                    <group>
+                        <field name="date"/>
+                        <field name="priority" widget="priority"/>
+                        <field name="sequence"/>
+                    </group>
+                </group>
+                <field name="description"/>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+</odoo>

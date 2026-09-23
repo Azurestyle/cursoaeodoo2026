@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="realestate_visit_action" model="ir.actions.act_window">
+        <field name="name">Visits</field>
+        <field name="res_model">realestate.visit</field>
+        <field name="view_mode">kanban,list,calendar,pivot,graph,form</field>
+        <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+        Create a new visit
+        </p>
+        <p>
+        Fill in the details of the visit you want to add, such as the property, visitor, and date.
+        </p>
+    </field>
+    </record>
+
+    <record id="realestate_visit_tree_view" model="ir.ui.view">
+        <field name="name">realestate.visit.list</field>
+        <field name="model">realestate.visit</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="property_id" optional="hide"/>
+                <field name="date" optional="show"/>
+                <field name="partner_id" optional="show"/>
+                <field name="user_id" optional="show"/>
+                <field name="state" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="realestate_visit_simple_view" model="ir.ui.view">
+        <field name="name">realestate.visit.simple.list</field>
+        <field name="model">realestate.visit</field>
+        <field name="priority" eval="99"/>
+        <field name="arch" type="xml">
+            <list string="Visits" editable="bottom">
+                <field name="date"/>
+                <field name="partner_id" options="{'no_quick_create': True}"/>
+                <field name="user_id" domain="[('share', '=', False)]" options="{'no_create': True}"/>
+                <field name="state" readonly="1" widget="badge" decoration-info="state == 'draft'" decoration-success="state == 'done'" decoration-danger="state == 'canceled'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="realestate_visit_form_view" model="ir.ui.view">
+        <field name="name">realestate.visit.form</field>
+        <field name="model">realestate.visit</field>
+        <field name="arch" type="xml">
+            <form>
+            <header>
+            <button name="action_draft" invisible="state not in ('done','canceled')" string="Set to Draft" type="object" class="btn-secondary"/>
+            <button name="action_schedule" invisible="state in ('scheduled','done','canceled')" string="Schedule" type="object" class="btn-primary"/>
+            <button name="action_done" invisible="state in ('draft','done','canceled')" string="Done" type="object" class="btn-success"/>
+            <button name="action_cancel" invisible="state in ('canceled')" string="Cancel" type="object" class="btn-danger"/>
+            <field name="state" options="{'clickable': True}" widget="statusbar"/>
+            </header>
+                <sheet>
+                <widget name="web_ribbon" invisible="state != 'canceled'" title="Canceled" bg_color="text-bg-danger"/>
+                <group>
+                    <group>
+                        <field name="property_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="user_id"/>
+                    </group>
+                    <group>
+                        <field name="date"/>
+                        <field name="partner_id" options="{'no_quick_create': True}"/>
+                        <field name="phone"/>
+                        <field name="personal_email"/>
+                    </group>
+                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="realestate_visit_search_view" model="ir.ui.view">
+        <field name="name">realestate.visit.search</field>
+        <field name="model">realestate.visit</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="property_id"/>
+                <field name="date"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <filter name="Draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="Scheduled" string="Scheduled" domain="[('state','=','scheduled')]"/>
+                <filter name="Done" string="Done" domain="[('state','=','done')]"/>
+                <filter name="Canceled" string="Canceled" domain="[('state','=','canceled')]"/>
+                <filter name="group_by_user" string="User" context="{'group_by':'user_id'}"/>
+                <filter name="group_by_property" string="Property" context="{'group_by':'property_id'}"/>
+                <filter name="group_by_state" string="State" context="{'group_by':'state'}"/>
+            </search>
+        </field>
+    </record>
+    <record id="realestate_visit_kanban_view" model="ir.ui.view">
+        <field name="name">realestate.visit.kanban</field>
+        <field name="model">realestate.visit</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" on_create="quick_create" class="o_kanban_small_column">
+                <field name="state"/>
+                <field name="property_id"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <field name="date"/>
+
+                <templates>
+                <t t-name="menu">
+                    <t t-if="widget.editable"><a role="menuitem" type="open" class="dropdown-item">Edit</a></t>
+                    <t t-if="widget.deletable"><a role="menuitem" type="delete" class="dropdown-item">Delete</a></t>
+                </t>
+                <t t-name="card">
+                <widget name="web_ribbon" title="Canceled" bg_color="text-bg-danger" invisible="state != 'canceled'"/>
+                <field name="property_id" class="fw-bold fs-5"/>
+                <field name="date"/>
+                <footer>
+                    <field name="partner_id"/>
+                    <field name="user_id" widget="many2one_avatar_user" class="ms-auto"/>
+                </footer>
+                </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="realestate_visit_pivot_view" model="ir.ui.view">
+        <field name="name">realestate.visit.pivot</field>
+        <field name="model">realestate.visit</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="state" type="row"/>
+                <field name="user_id" type="row"/>
+                <field name="property_id" type="row"/>
+                <field name="date" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="realestate_visit_graph_view" model="ir.ui.view">
+        <field name="name">realestate.visit.graph</field>
+        <field name="model">realestate.visit</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="state" type="row"/>
+                <field name="user_id" type="row"/>
+                <field name="property_id" type="row"/>
+                <field name="date" type="col"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="realestate_visit_calendar_view" model="ir.ui.view">
+        <field name="name">realestate.visit.calendar</field>
+        <field name="model">realestate.visit</field>
+        <field name="arch" type="xml">
+            <calendar string="Visits" date_start="date" color="user_id">
+                <field name="property_id"/>
+                <field name="state"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+            </calendar>
+        </field>
+    </record>
+</odoo>

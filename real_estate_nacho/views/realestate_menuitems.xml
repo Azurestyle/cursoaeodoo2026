@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="realestate_menu_root" name="Real Estate"/>
+    <menuitem id="realestate_menu_properties" name="Properties" parent="realestate_menu_root" action="realestate_property_action"/>
+
+    <menuitem id="realestate_menu_visits" name="Visits" parent="realestate_menu_root" action="realestate_visit_action"/>
+    <menuitem id="realestate_menu_offers" name="Offers" parent="realestate_menu_root" action="realestate_offer_action"/>
+    <menuitem id="realestate_menu_categories" name="Categories" parent="realestate_menu_root" action="realestate_category_action"/>
+    <menuitem id="realestate_menu_contracts" name="Contracts" parent="realestate_menu_root" action="realestate_contract_action"/>
+    <menuitem id="realestate_menu_images" name="Images" parent="realestate_menu_root" action="realestate_property_image_action"/>
+    <menuitem id="realestate_menu_incidents" name="Incidents" parent="realestate_menu_root" action="realestate_property_incident_action"/>
+    <!-- <menuitem id="realestate_menu_root" name="Real Estate">
+        <menuitem id="realestate_menu_properties" name="Properties" action="realestate_property_action"/>
+    </menuitem> -->
+</odoo>
