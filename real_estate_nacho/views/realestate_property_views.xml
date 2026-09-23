@@ -67,6 +67,18 @@
                     <page string="Information">
                         <field name="description"/>
                     </page>
+                    <page string="Images">
+                        <field name="image_ids" context="{'default_name': 'Imagen'}">
+                            <list editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="name"/>
+                                <field name="image" widget="image"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Visits">
+                        <field name="visit_ids" context="{'list_view_ref':'real_estate_nacho.realestate_visit_list_simple_view','default_user_id': user_id}"/>
+                    </page>
                 </notebook>
             </sheet>
         </form>
