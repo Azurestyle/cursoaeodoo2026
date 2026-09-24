@@ -28,6 +28,7 @@
             <field name="availability" widget="boolean_toggle" optional="show"/>
             <field name="stage_id" optional="show"/>
             <field name="user_id" widget="many2one_avatar_user" optional="show"/>
+            <field name="next_visit_date" optional="show"/>
         </list>
     </field>
 </record>
@@ -43,6 +44,7 @@
             <button name="action_accept_best_offer" class="btn-secondary" string="Accept Best Offer" type="object" />
             <button name="action_delete_refused_offers" class="btn-danger" string="Delete Refused Offers" type="object" />
             <button name="action_create_offer" class="btn-primary" string="Create Offer" type="object" />
+            <button name="action_cancel_pending_visits" class="btn-secondary" string="Cancel Pending Visits" type="object" />
             <field name="stage_id" widget="statusbar"/>
         </header>
             <sheet>
@@ -81,6 +83,16 @@
                     </page>
                     <page name="incidents" string="Incidents">
                         <field name="incident_ids" context="{'list_view_ref': 'real_estate_nacho.realestate_property_incident_simple_view', 'default_user_id': user_id}"/>
+                    </page>
+                    <page name="offers" string="Offers">
+                        <field name="offer_ids">
+                            <list editable="bottom">
+                                <field name="partner_id"/>
+                                <field name="amount"/>
+                                <field name="date"/>
+                                <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-warning="state == 'sent'" decoration-success="state == 'accepted'" decoration-danger="state == 'refused'"/>
+                            </list>
+                        </field>
                     </page>
                 </notebook>
             </sheet>
