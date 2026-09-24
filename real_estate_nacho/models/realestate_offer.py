@@ -29,6 +29,13 @@ class RealEstateOffer(models.Model):
     )
     note = fields.Html(string="Note")
 
+    category_id = fields.Many2one(
+        comodel_name="realestate.category",
+        string="Category",
+        related="property_id.category_id",
+        store=True
+    )
+
     def action_send(self):
         self.state = 'sent'
 
@@ -41,3 +48,11 @@ class RealEstateOffer(models.Model):
 
     def action_draft(self):
         self.state = 'draft'
+
+    def action_create_contract(self):
+        self.env['realestate.contract'].create({
+            'partner_id': self.partner_id.id,
+            'property_id': self.property_id.id,
+            'start_date': fields.Date.today(),
+            'contract_type': 'sale'
+        })

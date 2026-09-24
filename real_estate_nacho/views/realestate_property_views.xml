@@ -26,6 +26,7 @@
             <field name="category_id" optional="show"/>
             <field name="price" optional="show"/>
             <field name="availability" widget="boolean_toggle" optional="show"/>
+            <field name="next_visit_date" optional="show"/>
             <field name="stage_id" optional="show"/>
             <field name="user_id" widget="many2one_avatar_user" optional="show"/>
         </list>
@@ -43,6 +44,7 @@
             <button name="action_accept_best_offer" class="btn-secondary" string="Accept Best Offer" type="object" />
             <button name="action_delete_refused_offers" class="btn-danger" string="Delete Refused Offers" type="object" />
             <button name="action_create_offer" class="btn-primary" string="Create Offer" type="object" />
+            <button name="action_cancel_pending_visits" class="btn-warning" string="Cancel Pending Visits" type="object" />
             <field name="stage_id" widget="statusbar"/>
         </header>
             <sheet>
@@ -78,6 +80,29 @@
                     </page>
                     <page string="Visits">
                         <field name="visit_ids" context="{'list_view_ref':'real_estate_nacho.realestate_visit_list_simple_view','default_user_id': user_id}"/>
+                    </page>
+                    <page string="Incidents">
+                        <field name="incident_ids" context="{'default_user_id': user_id}">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="date"/>
+                            <field name="priority" widget="priority"/>
+                            <field name="state" widget="badge"/>
+                            <field name="user_id" options="{'no_create': True, 'no_open':True}" domain="[('share','=',False)]" widget="many2one_avatar_user"/>
+                        </list>
+                        </field>
+                    </page>
+                    <page string="Offers">
+                        <field name="offer_ids">
+                        <list editable="bottom">
+                            <field name="date"/>
+                            <field name="partner_id"/>
+                            <field name="amount"/>
+                            <field name="state" widget="badge" decoration-info="state=='draft'" decoration-warning="state=='sent'" decoration-success="state=='accepted'" decoration-danger="state=='refused'"/>
+                        </list>
+                        </field>
                     </page>
                 </notebook>
             </sheet>

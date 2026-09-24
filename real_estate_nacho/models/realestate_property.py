@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 class RealEstateProperty(models.Model):
     _name = "realestate.property"
@@ -36,6 +36,19 @@ class RealEstateProperty(models.Model):
         string="Visits"
     )
 
+    incident_ids = fields.One2many(
+        comodel_name="realestate.property.incident",
+        inverse_name="property_id",
+        string="Incidents"
+    )
+
+    offer_ids = fields.One2many(
+        comodel_name="realestate.offer",
+        inverse_name="property_id",
+        string="Offers"
+    )
+
+    next_visit_date = fields.Datetime(string="Next Visit Date", compute="_compute_next_visit_date", store=True)
     color = fields.Integer(string="Color")
 
     def action_reserve(self):
@@ -68,3 +81,19 @@ class RealEstateProperty(models.Model):
         }
         offer = self.env['realestate.offer'].create(vals)
         offer.action_send()
+
+    @api.depends('visit_ids.date', 'visit_ids.state')
+    def _compute_next_visit_date(self):
+        for record in self:
+            # next_visit = self.env['realestate.visit'].search([
+            #     ('property_id', '=', record.id),
+            #     ('state', '=', 'scheduled')], order='date asc', limit=1)
+            # record.next_visit_date = next_visit.date if next_visit else False
+            scheduled_visits = record.visit_ids.filtered(lambda visit: visit.state =='scheduled' and visit.date)
+            visit_dates = scheduled_visits.mapped('date')
+            record.next_visit_date = min(visit_dates) if visit_dates else False
+
+    def action_cancel_pending_visits(self):
+        pending_visits = self.env['realestate.visit'].search([('property_id', '=', self.id),('state', 'in', ['draft','scheduled'])])
+        pending_visits.unlink()
+            
