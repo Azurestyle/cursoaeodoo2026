@@ -10,4 +10,13 @@
         <field name="interval_type">days</field>
     </record>
 
+    <record id="realestate_visit_finish_cron" model="ir.cron">
+        <field name="name">Real Estate: finish visits with date passed</field>
+        <field name="model_id" ref="model_realestate_visit"/>   
+        <field name="state">code</field>
+        <field name="code">model._cron_finish_visits()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+    </record>
+
 </odoo>

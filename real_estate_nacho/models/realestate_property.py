@@ -52,6 +52,7 @@ class RealEstateProperty(models.Model):
     next_visit_date = fields.Datetime(string="Next Visit Date", compute="_compute_next_visit_date", store=True)
     color = fields.Integer(string="Color")
     visit_count = fields.Integer(string="Visit Count", compute="_compute_visit_count")
+    incident_count = fields.Integer(string="Incident Count", compute="_compute_incident_count")
 
     _reference_uniq = models.Constraint(
         "unique(reference)",
@@ -63,6 +64,9 @@ class RealEstateProperty(models.Model):
             # visit_ids = len(self.env['realestate.visit'].search([('property_id', '=', record.id)]))
             # visit_ids = self.env['realestate.visit'].search_count([('property_id', '=', record.id)])
             record.visit_count = len(record.visit_ids)
+    def _compute_incident_count(self):
+        for record in self:
+            record.incident_count = len(record.incident_ids)
 
     def action_reserve(self):
         self.availability = False
@@ -121,3 +125,13 @@ class RealEstateProperty(models.Model):
             'context': {'default_property_id': self.id}
         }
         return action
+
+    def action_open_incidents(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Incidents',
+            'res_model': 'realestate.property.incident',
+            'view_mode': 'list,form',
+            'domain': [('property_id', '=', self.id)],
+            'context': {'default_property_id': self.id}
+        }

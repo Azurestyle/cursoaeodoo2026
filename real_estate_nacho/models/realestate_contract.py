@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 class RealEstateContract(models.Model):
     _name = "realestate.contract"
@@ -52,6 +53,11 @@ class RealEstateContract(models.Model):
 
     has_deposit = fields.Boolean(string="Has Deposit", compute="_compute_has_deposit", store=True)
 
+    _name_uniq = models.Constraint(
+        "unique(name)",
+        "The contract name must be unique."
+    )
+
     def _compute_days_in_progress(self):
         for record in self:
             if record.start_date and record.state == 'progress':
@@ -96,4 +102,14 @@ class RealEstateContract(models.Model):
             [('end_date', '<', fields.Date.today()),
              ('state', '=', 'progress')])
         contracts.write({'state': 'done'})
-        
+
+    @api.constrains('start_date', 'end_date')
+    def _check_dates(self):
+        for record in self:
+            if record.start_date and record.end_date and record.start_date > record.end_date:
+                raise ValidationError("Start Date cannot be after End Date.")
+
+    @api.onchange('property_id')
+    def _onchange_property_id(self):
+        if self.property_id:
+            self.rent = self.property_id.price

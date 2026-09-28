@@ -50,9 +50,11 @@
             <sheet>
             <div class="oe_button_box" name="button_box">
                 <button name="action_open_visits" type="object" string="Visits" class="oe_stat_button" icon="fa-calendar">
-                <field name="visit_count" string="Visits" widget="statinfo"/>
+                    <field name="visit_count" string="Visits" widget="statinfo"/>
                 </button>
-
+                <button name="action_open_incidents" type="object" string="Incidents" class="oe_stat_button" icon="fa-exclamation-triangle">
+                    <field name="incident_count" string="Incidents" widget="statinfo"/>
+                </button>
                 
             </div>
             <widget name="web_ribbon" title="Reserved" invisible="availability" bg_color="text-bg-warning"/>

@@ -10,7 +10,7 @@ class RealEstateVisit(models.Model):
         string="Property",
         required=True,
     )
-    date = fields.Datetime(string="Visit Date")
+    date = fields.Datetime(string="Visit Date", default=fields.Datetime.now)
 
     partner_id = fields.Many2one(
         comodel_name="res.partner",
@@ -55,3 +55,10 @@ class RealEstateVisit(models.Model):
     
     def action_draft(self):
         self.state = "draft"
+
+    def _cron_finish_visits(self):
+        visits = self.search([
+            ('state', '=', 'scheduled'),
+            ('date', '<', fields.Datetime.now())
+            ])
+        visits = visits.write({'state': 'done'})
