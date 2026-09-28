@@ -16,7 +16,8 @@
         "views/realestate_contract_views.xml",
         "views/realestate_property_image_views.xml",
         "views/realestate_property_incident_views.xml",
-        "views/realestate_menuitems.xml"],
+        "views/realestate_menuitems.xml",
+        "data/realestate_cron.xml"],
     "installable": True,
     "application": True,
 }

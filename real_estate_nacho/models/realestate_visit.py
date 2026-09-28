@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import api, fields, models
 
 class RealEstateVisit(models.Model):
     _name = "realestate.visit"
@@ -10,7 +10,7 @@ class RealEstateVisit(models.Model):
         string="Property",
         required=True,
     )
-    date = fields.Datetime(string="Visit Date")
+    date = fields.Datetime(string="Visit Date", default=fields.Datetime.now)
 
     partner_id = fields.Many2one(
         comodel_name="res.partner",
@@ -21,8 +21,8 @@ class RealEstateVisit(models.Model):
         comodel_name="res.users",
         string="User",
     )
-    phone = fields.Char(string="Phone", related="partner_id.phone", readonly=False, store=True)
-    personal_email = fields.Char(string="Personal Email", related="partner_id.email")
+    phone = fields.Char(string="Phone")
+    personal_email = fields.Char(string="Personal Email")
     state = fields.Selection(
         selection=[
             ("draft", "Draft"),
@@ -38,6 +38,12 @@ class RealEstateVisit(models.Model):
     def _group_expand_state(self, states, domain):
         return ["draft", "scheduled", "done", "canceled"]
 
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
+        if self.partner_id:
+            self.phone = self.partner_id.phone
+            self.personal_email = self.partner_id.email
+
     def action_schedule(self):
         self.state = "scheduled"
         #self.write({'state': 'scheduled'})
@@ -50,3 +56,10 @@ class RealEstateVisit(models.Model):
     
     def action_draft(self):
         self.state = "draft"
+
+    def _cron_finish_visits(self):
+        visits = self.search([
+            ('state', '=', 'scheduled'),
+            ('date', '<', fields.Datetime.now()),
+        ])
+        visits.write({'state': 'done'})

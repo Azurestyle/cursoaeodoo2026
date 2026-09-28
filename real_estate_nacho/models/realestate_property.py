@@ -4,6 +4,11 @@ class RealEstateProperty(models.Model):
     _name = "realestate.property"
     _description = "Property"
 
+    _reference_uniq = models.Constraint(
+        "unique(reference)",
+        "The property reference must be unique."
+    )
+
     name = fields.Char(string="Name", required=True)
     description = fields.Text(string="Description")
     category_id = fields.Many2one(
@@ -16,6 +21,7 @@ class RealEstateProperty(models.Model):
     user_id = fields.Many2one(
         comodel_name="res.users",
         string="User",
+        default=lambda self: self.env.user
     )
 
     stage_id = fields.Many2one(
@@ -50,6 +56,12 @@ class RealEstateProperty(models.Model):
         compute="_compute_next_visit_date",
         store=True
     )
+    visit_count = fields.Integer(
+        compute="_compute_visit_count"
+    )
+    incident_count = fields.Integer(
+        compute="_compute_incident_count"
+    )
 
     def action_reserve(self):
         self.availability = False
@@ -65,6 +77,16 @@ class RealEstateProperty(models.Model):
             )
             visit_dates = scheduled_visits.mapped('date')
             record.next_visit_date = min(visit_dates) if visit_dates else False
+
+    @api.depends('visit_ids')
+    def _compute_visit_count(self):
+        for record in self:
+            record.visit_count = len(record.visit_ids)
+
+    @api.depends('incident_ids')
+    def _compute_incident_count(self):
+        for record in self:
+            record.incident_count = len(record.incident_ids)
     
     def action_create_visit(self):
         vals = {
@@ -97,3 +119,25 @@ class RealEstateProperty(models.Model):
             ('state', 'in', ['draft', 'scheduled']),
         ])
         pending_visits.write({'state': 'canceled'})
+
+    def action_open_visits(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Visits',
+            'res_model': 'realestate.visit',
+            'view_mode': 'list,form',
+            'domain': [('property_id', '=', self.id)],
+            'context': {'default_property_id': self.id},
+        }
+
+    def action_open_incidents(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Incidents',
+            'res_model': 'realestate.property.incident',
+            'view_mode': 'list,form',
+            'domain': [('property_id', '=', self.id)],
+            'context': {'default_property_id': self.id},
+        }

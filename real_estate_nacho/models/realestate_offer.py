@@ -1,4 +1,5 @@
-from odoo import models, fields
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 class RealEstateOffer(models.Model):
     _name = "realestate.offer"
@@ -22,7 +23,7 @@ class RealEstateOffer(models.Model):
     )
 
     amount = fields.Float(string="Amount")
-    date = fields.Datetime(string="Date")
+    date = fields.Datetime(string="Date", default=fields.Datetime.now)
     state = fields.Selection(
         selection=[
             ('draft', 'Draft'),
@@ -34,6 +35,12 @@ class RealEstateOffer(models.Model):
         default='draft',
     )
     note = fields.Html(string="Note")
+
+    @api.constrains('amount')
+    def _check_amount(self):
+        for offer in self:
+            if offer.amount < 0:
+                raise ValidationError(_("The offer amount cannot be negative."))
 
     def action_send(self):
         self.state = 'sent'
