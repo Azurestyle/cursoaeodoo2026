@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 class RealEstateVisit(models.Model):
     _name = "realestate.visit"
@@ -21,8 +21,8 @@ class RealEstateVisit(models.Model):
         comodel_name="res.users",
         string="User",
     )
-    phone = fields.Char(string="Phone", related="partner_id.phone", readonly=False, store=True)
-    personal_email = fields.Char(string="Personal Email", related="partner_id.email")
+    phone = fields.Char(string="Phone")
+    personal_email = fields.Char(string="Personal Email")
     state = fields.Selection(
         selection=[
             ("draft", "Draft"),
@@ -34,6 +34,11 @@ class RealEstateVisit(models.Model):
         default="draft",
         group_expand="_group_expand_state"
     )
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
+        if self.partner_id:
+            self.phone = self.partner_id.phone
+            self.personal_email = self.partner_id.email
 
     def _group_expand_state(self, states, domain):
         return ["draft", "scheduled", "done", "canceled"]

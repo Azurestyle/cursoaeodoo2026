@@ -1,4 +1,5 @@
-from odoo import models, fields
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 class RealEstateOffer(models.Model):
     _name = "realestate.offer"
@@ -56,3 +57,9 @@ class RealEstateOffer(models.Model):
             'start_date': fields.Date.today(),
             'contract_type': 'sale'
         })
+
+    @api.constrains('amount')
+    def _check_amount(self):
+        for offer in self:
+            if offer.amount < 0:
+                raise ValidationError(_("The offer amount must be positive.")) 

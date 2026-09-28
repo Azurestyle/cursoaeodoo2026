@@ -16,6 +16,7 @@ class RealEstateProperty(models.Model):
     user_id = fields.Many2one(
         comodel_name="res.users",
         string="User",
+        default=lambda self: self.env.user.id
     )
 
     stage_id = fields.Many2one(
@@ -50,6 +51,18 @@ class RealEstateProperty(models.Model):
 
     next_visit_date = fields.Datetime(string="Next Visit Date", compute="_compute_next_visit_date", store=True)
     color = fields.Integer(string="Color")
+    visit_count = fields.Integer(string="Visit Count", compute="_compute_visit_count")
+
+    _reference_uniq = models.Constraint(
+        "unique(reference)",
+        "The property reference must be unique."
+    )
+
+    def _compute_visit_count(self):
+        for record in self:
+            # visit_ids = len(self.env['realestate.visit'].search([('property_id', '=', record.id)]))
+            # visit_ids = self.env['realestate.visit'].search_count([('property_id', '=', record.id)])
+            record.visit_count = len(record.visit_ids)
 
     def action_reserve(self):
         self.availability = False
@@ -58,6 +71,7 @@ class RealEstateProperty(models.Model):
         return self.env['realestate.property.stage'].search([], order='sequence')
     
     def action_create_visit(self):
+        import pdb;pdb.set_trace()
         vals = {
             'property_id': self.id,
             'date': fields.Datetime.now(),
@@ -96,4 +110,14 @@ class RealEstateProperty(models.Model):
     def action_cancel_pending_visits(self):
         pending_visits = self.env['realestate.visit'].search([('property_id', '=', self.id),('state', 'in', ['draft','scheduled'])])
         pending_visits.unlink()
-            
+
+    def action_open_visits(self):
+        action = {
+            'type': 'ir.actions.act_window',
+            'name': 'Visits',
+            'res_model': 'realestate.visit',
+            'view_mode': 'kanban,list,form',
+            'domain': [('property_id', '=', self.id)],
+            'context': {'default_property_id': self.id}
+        }
+        return action

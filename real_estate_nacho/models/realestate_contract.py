@@ -21,8 +21,8 @@ class RealEstateContract(models.Model):
         comodel_name="res.partner",
         string="Partner",
     )
-
-    start_date = fields.Date(string="Start Date")
+    
+    start_date = fields.Date(string="Start Date", default=fields.Date.today)
 
     end_date = fields.Date(string="End Date")
 
@@ -90,3 +90,10 @@ class RealEstateContract(models.Model):
 
     def action_cancelled(self):
         self.state = 'cancelled'
+
+    def _cron_finish_contracts(self):
+        contracts = self.env['realestate.contract'].search(
+            [('end_date', '<', fields.Date.today()),
+             ('state', '=', 'progress')])
+        contracts.write({'state': 'done'})
+        
