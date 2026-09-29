@@ -10,7 +10,7 @@ class RealEstateContract(models.Model):
         "The contract name must be unique."
     )
 
-    name = fields.Char(string="Name")
+    name = fields.Char(string="Name", copy=False)
     contract_type = fields.Selection(
         selection=[
             ('sale', 'Sale'),
@@ -32,8 +32,13 @@ class RealEstateContract(models.Model):
 
     end_date = fields.Date(string="End Date")
 
-    rent = fields.Float(string="Rent")
-    deposit = fields.Float(string="Deposit")
+    rent = fields.Monetary(string="Rent", currency_field="currency_id")
+    deposit = fields.Monetary(string="Deposit", currency_field="currency_id")
+    currency_id = fields.Many2one(
+        comodel_name="res.currency",
+        string="Currency",
+        default=lambda self: self.env.company.currency_id
+    )
 
     state = fields.Selection(
         selection=[

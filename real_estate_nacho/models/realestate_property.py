@@ -1,5 +1,6 @@
 from odoo import api, fields, models
 
+
 class RealEstateProperty(models.Model):
     _name = "realestate.property"
     _description = "Property"
@@ -9,19 +10,35 @@ class RealEstateProperty(models.Model):
         "The property reference must be unique."
     )
 
+    active = fields.Boolean(string="Active", default=True)
     name = fields.Char(string="Name", required=True)
     description = fields.Text(string="Description")
+    internal_note = fields.Text(string="Internal Note", company_dependent=True)
     category_id = fields.Many2one(
         comodel_name="realestate.category",
         string="Category",
     )
-    price = fields.Float(string="Price")
-    reference = fields.Char(string="Reference")
+    tag_ids = fields.Many2many(
+        comodel_name="realestate.property.tag",
+        string="Tags",
+    )
+    price = fields.Monetary(string="Price", currency_field="currency_id")
+    reference = fields.Char(string="Reference", copy=False)
     availability = fields.Boolean(string="Availability", default=True)
     user_id = fields.Many2one(
         comodel_name="res.users",
         string="User",
         default=lambda self: self.env.user
+    )
+    company_id = fields.Many2one(
+        comodel_name="res.company",
+        string="Company",
+        default=lambda self: self.env.company
+    )
+    currency_id = fields.Many2one(
+        comodel_name="res.currency",
+        string="Currency",
+        default=lambda self: self.env.company.currency_id
     )
 
     stage_id = fields.Many2one(
@@ -39,17 +56,20 @@ class RealEstateProperty(models.Model):
     visit_ids = fields.One2many(
         comodel_name="realestate.visit",
         inverse_name="property_id",
-        string="Visits"
+        string="Visits",
+        copy=False
     )
     incident_ids = fields.One2many(
         comodel_name="realestate.property.incident",
         inverse_name="property_id",
-        string="Incidents"
+        string="Incidents",
+        copy=False
     )
     offer_ids = fields.One2many(
         comodel_name="realestate.offer",
         inverse_name="property_id",
-        string="Offers"
+        string="Offers",
+        copy=False
     )
     next_visit_date = fields.Datetime(
         string="Next Visit",
@@ -65,7 +85,7 @@ class RealEstateProperty(models.Model):
 
     def action_reserve(self):
         self.availability = False
-    
+
     def _read_group_stage_ids(self, stages, domain):
         return self.env['realestate.property.stage'].search([], order='sequence')
 
@@ -87,7 +107,7 @@ class RealEstateProperty(models.Model):
     def _compute_incident_count(self):
         for record in self:
             record.incident_count = len(record.incident_ids)
-    
+
     def action_create_visit(self):
         vals = {
             'property_id': self.id,
@@ -95,7 +115,7 @@ class RealEstateProperty(models.Model):
             'user_id': self.user_id.id
         }
         self.env['realestate.visit'].create(vals)
-    
+
     def action_accept_best_offer(self):
         best_offer = self.env['realestate.offer'].search([('property_id', '=', self.id),('state', '=', 'sent')], order='amount desc', limit=1)
         if best_offer:

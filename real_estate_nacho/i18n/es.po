@@ -6,15 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-28 09:45+0000\n"
-"PO-Revision-Date: 2026-09-28 09:45+0000\n"
+"POT-Creation-Date: 2026-09-29 09:51+0000\n"
+"PO-Revision-Date: 2026-09-29 09:51+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: \n"
 
 #. module: real_estate_nacho
 #: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_offer_form_view
@@ -31,6 +30,12 @@ msgstr "Aceptar mejor oferta"
 #: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_offer_search_view
 msgid "Accepted"
 msgstr "Aceptada"
+
+#. module: real_estate_nacho
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_category__active
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__active
+msgid "Active"
+msgstr "Activo"
 
 #. module: real_estate_nacho
 #: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_offer_form_view
@@ -53,6 +58,8 @@ msgid "Available"
 msgstr "Disponible"
 
 #. module: real_estate_nacho
+#: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_property_change_stage_view_form
+#: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_property_schedule_visits_view_form
 #: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_visit_form_view
 msgid "Cancel"
 msgstr "Cancelar"
@@ -91,9 +98,21 @@ msgid "Category"
 msgstr "Categoría"
 
 #. module: real_estate_nacho
+#: model:ir.actions.act_window,name:real_estate_nacho.realestate_property_change_stage_action
+#: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_property_change_stage_view_form
+msgid "Change Stage"
+msgstr "Cambiar etapa"
+
+#. module: real_estate_nacho
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__color
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_tag__color
 msgid "Color"
 msgstr "Color"
+
+#. module: real_estate_nacho
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__company_id
+msgid "Company"
+msgstr "Compañía"
 
 #. module: real_estate_nacho
 #: model:ir.model,name:real_estate_nacho.model_realestate_contract
@@ -132,6 +151,11 @@ msgid "Create Visit"
 msgstr "Crear visita"
 
 #. module: real_estate_nacho
+#: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_property_schedule_visits_view_form
+msgid "Create Visits"
+msgstr "Crear visitas"
+
+#. module: real_estate_nacho
 #: model_terms:ir.actions.act_window,help:real_estate_nacho.realestate_offer_action
 msgid "Create a new offer"
 msgstr "Crear una nueva oferta"
@@ -151,9 +175,12 @@ msgstr "Crear una nueva visita"
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_contract__create_uid
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_offer__create_uid
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__create_uid
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_change_stage__create_uid
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_image__create_uid
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_incident__create_uid
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_schedule_visits__create_uid
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_stage__create_uid
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_tag__create_uid
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_visit__create_uid
 msgid "Created by"
 msgstr "Creado por"
@@ -163,12 +190,22 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_contract__create_date
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_offer__create_date
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__create_date
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_change_stage__create_date
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_image__create_date
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_incident__create_date
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_schedule_visits__create_date
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_stage__create_date
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_tag__create_date
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_visit__create_date
 msgid "Created on"
 msgstr "Creado el"
+
+#. module: real_estate_nacho
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_contract__currency_id
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_offer__currency_id
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__currency_id
+msgid "Currency"
+msgstr "Moneda"
 
 #. module: real_estate_nacho
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_offer__date
@@ -215,9 +252,12 @@ msgstr "Descripción"
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_contract__display_name
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_offer__display_name
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__display_name
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_change_stage__display_name
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_image__display_name
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_incident__display_name
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_schedule_visits__display_name
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_stage__display_name
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_tag__display_name
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_visit__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
@@ -254,6 +294,7 @@ msgstr "Editar"
 
 #. module: real_estate_nacho
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_contract__end_date
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_schedule_visits__end_date
 msgid "End Date"
 msgstr "Fecha de finalización"
 
@@ -304,9 +345,12 @@ msgstr "Alta"
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_contract__id
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_offer__id
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__id
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_change_stage__id
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_image__id
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_incident__id
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_schedule_visits__id
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_stage__id
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_tag__id
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_visit__id
 msgid "ID"
 msgstr "ID"
@@ -330,6 +374,10 @@ msgstr "En progreso"
 
 #. module: real_estate_nacho
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__incident_count
+msgid "Incident Count"
+msgstr "Incidencias"
+
+#. module: real_estate_nacho
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__incident_ids
 #: model:ir.ui.menu,name:real_estate_nacho.realestate_menu_incidents
 #: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_property_form_view
@@ -344,13 +392,21 @@ msgid "Information"
 msgstr "Información"
 
 #. module: real_estate_nacho
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__internal_note
+msgid "Internal Note"
+msgstr "Nota interna"
+
+#. module: real_estate_nacho
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_category__write_uid
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_contract__write_uid
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_offer__write_uid
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__write_uid
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_change_stage__write_uid
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_image__write_uid
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_incident__write_uid
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_schedule_visits__write_uid
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_stage__write_uid
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_tag__write_uid
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_visit__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
@@ -360,9 +416,12 @@ msgstr "Última actualización por"
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_contract__write_date
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_offer__write_date
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__write_date
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_change_stage__write_date
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_image__write_date
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_incident__write_date
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_schedule_visits__write_date
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_stage__write_date
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_tag__write_date
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_visit__write_date
 msgid "Last Updated on"
 msgstr "Última actualización el"
@@ -388,6 +447,7 @@ msgstr "Media"
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__name
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_image__name
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_incident__name
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_tag__name
 msgid "Name"
 msgstr "Nombre"
 
@@ -462,6 +522,7 @@ msgstr "Propiedades"
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_offer__property_id
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_image__property_id
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_incident__property_id
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_schedule_visits__property_id
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_visit__property_id
 #: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_offer_search_view
 #: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_property_form_view
@@ -497,6 +558,11 @@ msgstr "Incidencias de propiedad"
 #: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_property_form_view
 msgid "Property Name"
 msgstr "Nombre de la propiedad"
+
+#. module: real_estate_nacho
+#: model:ir.model,name:real_estate_nacho.model_realestate_property_tag
+msgid "Property Tag"
+msgstr "Etiqueta de propiedad"
 
 #. module: real_estate_nacho
 #: model:ir.module.category,name:real_estate_nacho.module_category_real_estate
@@ -586,6 +652,12 @@ msgid "Schedule"
 msgstr "Programar"
 
 #. module: real_estate_nacho
+#: model:ir.actions.act_window,name:real_estate_nacho.realestate_property_schedule_visits_action
+#: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_property_schedule_visits_view_form
+msgid "Schedule Visits"
+msgstr "Programar visitas"
+
+#. module: real_estate_nacho
 #: model:ir.model.fields.selection,name:real_estate_nacho.selection__realestate_visit__state__scheduled
 #: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_visit_search_view
 msgid "Scheduled"
@@ -631,6 +703,7 @@ msgstr "Marcar en curso"
 
 #. module: real_estate_nacho
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__stage_id
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_change_stage__stage_id
 msgid "Stage"
 msgstr "Etapa"
 
@@ -641,6 +714,7 @@ msgstr "Nombre de etapa"
 
 #. module: real_estate_nacho
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_contract__start_date
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property_schedule_visits__start_date
 msgid "Start Date"
 msgstr "Fecha de inicio"
 
@@ -653,6 +727,24 @@ msgstr "Fecha de inicio"
 #: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_visit_search_view
 msgid "State"
 msgstr "Estado"
+
+#. module: real_estate_nacho
+#: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_property_tag_view_form
+msgid "Tag"
+msgstr "Etiqueta"
+
+#. module: real_estate_nacho
+#: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_property_tag_view_form
+msgid "Tag Name"
+msgstr "Nombre de la etiqueta"
+
+#. module: real_estate_nacho
+#: model:ir.actions.act_window,name:real_estate_nacho.realestate_property_tag_action
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__tag_ids
+#: model:ir.ui.menu,name:real_estate_nacho.realestate_menu_tags
+#: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_property_tag_view_list
+msgid "Tags"
+msgstr "Etiquetas"
 
 #. module: real_estate_nacho
 #: model:ir.model.constraint,message:real_estate_nacho.constraint_realestate_contract_name_uniq
@@ -696,6 +788,11 @@ msgid "Visit"
 msgstr "Visita"
 
 #. module: real_estate_nacho
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__visit_count
+msgid "Visit Count"
+msgstr "Visitas"
+
+#. module: real_estate_nacho
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_visit__date
 msgid "Visit Date"
 msgstr "Fecha de la visita"
@@ -707,7 +804,6 @@ msgstr "Visitante"
 
 #. module: real_estate_nacho
 #: model:ir.actions.act_window,name:real_estate_nacho.realestate_visit_action
-#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__visit_count
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__visit_ids
 #: model:ir.ui.menu,name:real_estate_nacho.realestate_menu_visits
 #: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_property_form_view
@@ -715,6 +811,16 @@ msgstr "Visitante"
 #: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_visit_simple_view
 msgid "Visits"
 msgstr "Visitas"
+
+#. module: real_estate_nacho
+#: model:ir.model,name:real_estate_nacho.model_realestate_property_change_stage
+msgid "Wizard to change the stage of properties"
+msgstr "Asistente para cambiar la etapa de propiedades"
+
+#. module: real_estate_nacho
+#: model:ir.model,name:real_estate_nacho.model_realestate_property_schedule_visits
+msgid "Wizard to schedule visits for a property"
+msgstr "Asistente para programar visitas de una propiedad"
 
 #. module: real_estate_nacho
 #: model:ir.actions.act_window,name:real_estate_nacho.realestate_contract_action

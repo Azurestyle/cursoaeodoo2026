@@ -21,10 +21,12 @@
     <field name="arch" type="xml">
         <list string="Properties" multi_edit="1">
             <field name="reference" optional="show"/>
+            <field name="currency_id" column_invisible="True"/>
             <field name="name" optional="show"/>
             <field name="description" optional="hide"/>
             <field name="category_id" optional="show"/>
-            <field name="price" optional="show"/>
+            <field name="tag_ids" widget="many2many_tags" optional="hide"/>
+            <field name="price" widget="monetary" optional="show"/>
             <field name="availability" widget="boolean_toggle" optional="show"/>
             <field name="stage_id" optional="show"/>
             <field name="user_id" widget="many2one_avatar_user" optional="show"/>
@@ -42,12 +44,13 @@
             <button name="action_reserve" string="Reserve" invisible="not availability" type="object" class="btn-primary"/>
             <button name="action_create_visit" string="Create Visit" type="object" class="btn-secondary"/>
             <button name="action_accept_best_offer" class="btn-secondary" string="Accept Best Offer" type="object" />
-            <button name="action_delete_refused_offers" class="btn-danger" string="Delete Refused Offers" type="object" />
+            <button name="action_delete_refused_offers" class="btn-danger" string="Delete Refused Offers" type="object" groups="real_estate_nacho.group_real_estate_manager"/>
             <button name="action_create_offer" class="btn-primary" string="Create Offer" type="object" />
-            <button name="action_cancel_pending_visits" class="btn-secondary" string="Cancel Pending Visits" type="object" />
+            <button name="action_cancel_pending_visits" class="btn-secondary" string="Cancel Pending Visits" type="object" groups="real_estate_nacho.group_real_estate_manager"/>
             <field name="stage_id" widget="statusbar"/>
         </header>
             <sheet>
+            <field name="currency_id" invisible="1"/>
             <div class="oe_button_box" name="button_box">
                 <button name="action_open_visits"
                     type="object"
@@ -72,16 +75,19 @@
                     <group>
                         <field name="reference"/>
                         <field name="category_id"/>
-                        <field name="price"/>
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        <field name="price" widget="monetary"/>
                     </group>
                     <group>
                         <field name="availability" widget="boolean_toggle"/>
                         <field name="user_id" widget="many2one_avatar_user"/>
+                        <field name="company_id"/>
                     </group>
                 </group>
                 <notebook>
                     <page string="Information">
                         <field name="description"/>
+                        <field name="internal_note"/>
                     </page>
                     <page name="images" string="Images">
                         <field name="image_ids">
@@ -101,8 +107,9 @@
                     <page name="offers" string="Offers">
                         <field name="offer_ids">
                             <list editable="bottom">
+                                <field name="currency_id" column_invisible="True"/>
                                 <field name="partner_id"/>
-                                <field name="amount"/>
+                                <field name="amount" widget="monetary"/>
                                 <field name="date"/>
                                 <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-warning="state == 'sent'" decoration-success="state == 'accepted'" decoration-danger="state == 'refused'"/>
                             </list>
@@ -122,7 +129,8 @@
             <field name="name"/>
             <field name="reference"/>
             <field name="category_id"/>
-            <field name="price"/>
+            <field name="price" widget="monetary"/>
+            <field name="currency_id"/>
             <field name="availability"/>
             <field name="user_id"/>
             <field name="stage_id"/>
@@ -139,7 +147,7 @@
                 <field name="reference"/>
                 <field name="category_id"/>
                 <footer>
-                    <field name="price"/>
+                    <field name="price" widget="monetary"/>
                     <field name="user_id" widget="many2one_avatar_user" class="ms-auto"/>
                 </footer>
                 

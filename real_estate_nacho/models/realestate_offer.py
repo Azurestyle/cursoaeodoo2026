@@ -22,7 +22,12 @@ class RealEstateOffer(models.Model):
         string="Partner",
     )
 
-    amount = fields.Float(string="Amount")
+    amount = fields.Monetary(string="Amount", currency_field="currency_id")
+    currency_id = fields.Many2one(
+        comodel_name="res.currency",
+        string="Currency",
+        default=lambda self: self.env.company.currency_id
+    )
     date = fields.Datetime(string="Date", default=fields.Datetime.now)
     state = fields.Selection(
         selection=[
