@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_realestate_property" model="report.paperformat">
+        <field name="name">Property Paperformat</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">55</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">40</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_realestate_property" model="ir.actions.report">
+        <field name="name">Property</field>
+        <field name="model">realestate.property</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">real_estate_nacho.report_realestate_property</field>
+        <field name="report_file">real_estate_nacho.report_realestate_property</field>
+        <field name="print_report_name">'Property - %s' % (object.reference or object.name)</field>
+        <field name="paperformat_id" ref="paperformat_realestate_property"/>
+        <field name="binding_model_id" ref="model_realestate_property"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_realestate_property">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 t-field="o.name"/>
+                        <div class="row mt-3 mb-3">
+                            <div class="col-4">
+                                <strong>Reference:</strong>
+                                <span t-field="o.reference"/>
+                            </div>
+                            <div class="col-4">
+                                <strong>Category:</strong>
+                                <span t-field="o.category_id"/>
+                            </div>
+                            <div class="col-4">
+                                <strong>Stage:</strong>
+                                <span t-field="o.stage_id"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-4">
+                                <strong>Price:</strong>
+                                <span t-field="o.price"/>
+                            </div>
+                            <div class="col-4">
+                                <strong>Responsible:</strong>
+                                <span t-field="o.user_id"/>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Description:</strong>
+                            <div t-field="o.description"/>
+                        </div>
+                        <h4>Images</h4>
+                        <t t-if="o.image_ids">
+                            <table class="table table-sm o_main_table">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.image_ids" t-as="image">
+                                        <tr>
+                                            <td>
+                                                <img t-if="image.image" t-att-src="image_data_uri(image.image)" style="max-height: 100px;" t-att-alt="image.name"/>
+                                            </td>
+                                            <td><span t-field="image.name"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+                        <p t-else="" class="text-muted">No images yet.</p>
+                        <h4>Visits</h4>
+                        <t t-if="o.visit_ids">
+                            <table class="table table-sm o_main_table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Visitor</th>
+                                        <th>Phone</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.visit_ids" t-as="visit">
+                                        <tr>
+                                            <td><span t-field="visit.date"/></td>
+                                            <td><span t-field="visit.partner_id"/></td>
+                                            <td><span t-field="visit.phone"/></td>
+                                            <td><span t-field="visit.state"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+                        <p t-else="" class="text-muted">No visits yet.</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

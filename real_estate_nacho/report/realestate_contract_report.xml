@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_realestate_contract" model="report.paperformat">
+        <field name="name">Contract Paperformat</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">55</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">15</field>
+        <field name="margin_right">15</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">40</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_realestate_contract" model="ir.actions.report">
+        <field name="name">Contract</field>
+        <field name="model">realestate.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">real_estate_nacho.report_realestate_contract</field>
+        <field name="report_file">real_estate_nacho.report_realestate_contract</field>
+        <field name="print_report_name">'Contract - %s' % object.name</field>
+        <field name="paperformat_id" ref="paperformat_realestate_contract"/>
+        <field name="binding_model_id" ref="model_realestate_contract"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_realestate_contract">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Contract <span t-field="o.name"/></h2>
+                        <div class="row mt-3 mb-3">
+                            <div class="col-6">
+                                <strong>Property:</strong>
+                                <span t-field="o.property_id"/>
+                            </div>
+                            <div class="col-6">
+                                <strong>Tenant / Buyer:</strong>
+                                <span t-field="o.partner_id"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-4">
+                                <strong>Type:</strong>
+                                <span t-field="o.contract_type"/>
+                            </div>
+                            <div class="col-4">
+                                <strong>Start Date:</strong>
+                                <span t-field="o.start_date"/>
+                            </div>
+                            <div class="col-4">
+                                <strong>End Date:</strong>
+                                <span t-field="o.end_date"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-4">
+                                <strong>Rent:</strong>
+                                <span t-field="o.rent"/>
+                            </div>
+                            <div class="col-4" t-if="o.contract_type == 'rent'">
+                                <strong>Deposit:</strong>
+                                <span t-field="o.deposit"/>
+                            </div>
+                            <div class="col-4">
+                                <strong>Status:</strong>
+                                <span t-field="o.state"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>
