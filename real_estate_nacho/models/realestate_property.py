@@ -156,3 +156,6 @@ class RealEstateProperty(models.Model):
             'domain': [('property_id', '=', self.id)],
             'context': {'default_property_id': self.id}
         }
+
+    # def action_print_property(self):
+    #     return self.env.ref('real_estate_nacho.action_report_realestate_property').report_action(self.ids)
