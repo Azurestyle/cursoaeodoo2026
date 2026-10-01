@@ -20,6 +20,9 @@ class RealEstateProperty(models.Model):
     )
     tag_ids = fields.Many2many(
         comodel_name="realestate.property.tag",
+        relation="realestate_property_realestate_property_tag_rel",
+        column1="realestate_property_id",
+        column2="realestate_property_tag_id",
         string="Tags",
     )
     price = fields.Monetary(string="Price", currency_field="currency_id")
@@ -71,6 +74,12 @@ class RealEstateProperty(models.Model):
         string="Offers",
         copy=False
     )
+    contract_ids = fields.One2many(
+        comodel_name="realestate.contract",
+        inverse_name="property_id",
+        string="Contracts",
+        copy=False
+    )
     next_visit_date = fields.Datetime(
         string="Next Visit",
         compute="_compute_next_visit_date",
@@ -81,6 +90,9 @@ class RealEstateProperty(models.Model):
     )
     incident_count = fields.Integer(
         compute="_compute_incident_count"
+    )
+    contract_count = fields.Integer(
+        compute="_compute_contract_count"
     )
 
     def action_reserve(self):
@@ -107,6 +119,11 @@ class RealEstateProperty(models.Model):
     def _compute_incident_count(self):
         for record in self:
             record.incident_count = len(record.incident_ids)
+
+    @api.depends('contract_ids')
+    def _compute_contract_count(self):
+        for record in self:
+            record.contract_count = len(record.contract_ids)
 
     def action_create_visit(self):
         vals = {
@@ -157,6 +174,17 @@ class RealEstateProperty(models.Model):
             'type': 'ir.actions.act_window',
             'name': 'Incidents',
             'res_model': 'realestate.property.incident',
+            'view_mode': 'list,form',
+            'domain': [('property_id', '=', self.id)],
+            'context': {'default_property_id': self.id},
+        }
+
+    def action_open_contracts(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Contracts',
+            'res_model': 'realestate.contract',
             'view_mode': 'list,form',
             'domain': [('property_id', '=', self.id)],
             'context': {'default_property_id': self.id},

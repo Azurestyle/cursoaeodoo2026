@@ -64,6 +64,12 @@
                     icon="fa-exclamation-triangle">
                     <field name="incident_count" string="Incidents" widget="statinfo"/>
                 </button>
+                <button name="action_open_contracts"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-file-text-o">
+                    <field name="contract_count" string="Contracts" widget="statinfo"/>
+                </button>
             </div>
             <widget name="web_ribbon" title="Reserved" invisible="availability" bg_color="text-bg-warning"/>
                 <div class="oe_title">

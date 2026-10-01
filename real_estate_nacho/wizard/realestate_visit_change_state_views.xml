@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<record id="realestate_visit_change_state_action" model="ir.actions.act_window">
+    <field name="name">Change State</field>
+    <field name="res_model">realestate.visit.change.state</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+    <field name="binding_model_id" ref="real_estate_nacho.model_realestate_visit"/>
+    <field name="binding_view_types">list</field>
+</record>
+
+<record id="realestate_visit_change_state_view_form" model="ir.ui.view">
+    <field name="name">realestate.visit.change.state.view.form</field>
+    <field name="model">realestate.visit.change.state</field>
+    <field name="arch" type="xml">
+        <form string="Change State">
+            <group>
+                <field name="state"/>
+            </group>
+            <footer>
+                <button string="Change State" name="action_change_state" type="object" class="btn-primary"/>
+                <button string="Cancel" class="btn-secondary" special="cancel"/>
+            </footer>
+        </form>
+    </field>
+</record>
+</odoo>

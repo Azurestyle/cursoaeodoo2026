@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_realestate_offer" model="ir.actions.report">
+        <field name="name">Offer</field>
+        <field name="model">realestate.offer</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">real_estate_nacho.report_realestate_offer</field>
+        <field name="report_file">real_estate_nacho.report_realestate_offer</field>
+        <field name="print_report_name">'Offer - %s' % (object.property_id.name or object.partner_id.name)</field>
+        <field name="binding_model_id" ref="model_realestate_offer"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_realestate_offer">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Offer</h2>
+                        <div class="row mt-3 mb-3">
+                            <div class="col-6">
+                                <strong>Property:</strong>
+                                <span t-field="o.property_id"/>
+                            </div>
+                            <div class="col-6">
+                                <strong>Buyer:</strong>
+                                <span t-field="o.partner_id"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-4">
+                                <strong>Amount:</strong>
+                                <span t-field="o.amount"/>
+                            </div>
+                            <div class="col-4">
+                                <strong>Date:</strong>
+                                <span t-field="o.date"/>
+                            </div>
+                            <div class="col-4">
+                                <strong>Status:</strong>
+                                <span t-field="o.state"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

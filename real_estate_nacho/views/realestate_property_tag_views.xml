@@ -32,6 +32,9 @@
                 <group>
                     <field name="color" widget="color_picker"/>
                 </group>
+                <group string="Properties">
+                    <field name="property_ids" nolabel="1"/>
+                </group>
             </sheet>
         </form>
     </field>
