@@ -200,6 +200,11 @@ msgid "Company"
 msgstr "Compañía"
 
 #. module: real_estate_nacho
+#: model:ir.ui.menu,name:real_estate_nacho.realestate_menu_configuration
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: real_estate_nacho
 #: model:ir.actions.report,name:real_estate_nacho.action_report_realestate_contract
 #: model:ir.model,name:real_estate_nacho.model_realestate_contract
 #: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_contract_form_view
@@ -580,6 +585,11 @@ msgid "Offers"
 msgstr "Ofertas"
 
 #. module: real_estate_nacho
+#: model:ir.ui.menu,name:real_estate_nacho.realestate_menu_operations
+msgid "Operations"
+msgstr "Operaciones"
+
+#. module: real_estate_nacho
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_contract__partner_id
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_offer__partner_id
 #: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_offer_search_view
@@ -596,6 +606,11 @@ msgstr "Email personal"
 #: model_terms:ir.ui.view,arch_db:real_estate_nacho.report_realestate_property
 msgid "Phone"
 msgstr "Teléfono"
+
+#. module: real_estate_nacho
+#: model:ir.ui.menu,name:real_estate_nacho.realestate_menu_portfolio
+msgid "Portfolio"
+msgstr "Inmuebles"
 
 #. module: real_estate_nacho
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__price
