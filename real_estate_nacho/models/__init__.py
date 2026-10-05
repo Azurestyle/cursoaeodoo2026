@@ -7,3 +7,5 @@ from . import realestate_property_stage
 from . import realestate_property_image
 from . import realestate_property_incident
 from . import realestate_property_tag
+from . import realestate_agent
+from . import realestate_owner

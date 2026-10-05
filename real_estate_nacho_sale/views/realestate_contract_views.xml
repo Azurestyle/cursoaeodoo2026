@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<record id="realestate_contract_form_view_inherit_sale" model="ir.ui.view">
+    <field name="name">realestate.contract.form.view.inherit.real_estate_nacho_sale</field>
+    <field name="model">realestate.contract</field>
+    <field name="inherit_id" ref="real_estate_nacho.realestate_contract_form_view"/>
+    <field name="arch" type="xml">
+        <button name="action_progress" position="after">
+            <button name="action_create_sale_order" string="Create Sale Order" type="object" class="btn-primary"/>
+            <button name="action_confirm_and_invoice" string="Confirm and Invoice" type="object" class="btn-secondary"/>
+        </button>
+        <div name="button_box" position="inside">
+            <button name="action_view_orders" type="object" class="oe_stat_button" icon="fa-shopping-cart">
+                <field name="order_count" string="Orders" widget="statinfo"/>
+            </button>
+        </div>
+        <field name="contract_type" position="after">
+            <field name="product_id"/>
+        </field>
+    </field>
+</record>
+
+</odoo>

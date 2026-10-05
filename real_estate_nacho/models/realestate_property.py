@@ -33,6 +33,14 @@ class RealEstateProperty(models.Model):
         string="User",
         default=lambda self: self.env.user
     )
+    agent_id = fields.Many2one(
+        comodel_name="realestate.agent",
+        string="Agent",
+    )
+    owner_id = fields.Many2one(
+        comodel_name="realestate.owner",
+        string="Owner",
+    )
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
