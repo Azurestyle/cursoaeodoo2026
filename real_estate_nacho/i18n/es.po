@@ -71,6 +71,11 @@ msgid "Category"
 msgstr "Categoría"
 
 #. module: real_estate_nacho
+#: model:ir.ui.menu,name:real_estate_nacho.realestate_menu_configuration
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: real_estate_nacho
 #: model:ir.model,name:real_estate_nacho.model_realestate_contract
 #: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_contract_form_view
 msgid "Contract"
@@ -258,10 +263,20 @@ msgid "Offers"
 msgstr "Ofertas"
 
 #. module: real_estate_nacho
+#: model:ir.ui.menu,name:real_estate_nacho.realestate_menu_operations
+msgid "Operations"
+msgstr "Operaciones"
+
+#. module: real_estate_nacho
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_contract__partner_id
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_offer__partner_id
 msgid "Partner"
 msgstr "Contacto"
+
+#. module: real_estate_nacho
+#: model:ir.ui.menu,name:real_estate_nacho.realestate_menu_portfolio
+msgid "Portfolio"
+msgstr "Inmuebles"
 
 #. module: real_estate_nacho
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__price
@@ -409,6 +424,14 @@ msgstr "Fecha de inicio"
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_visit__state
 msgid "State"
 msgstr "Estado"
+
+#. module: real_estate_nacho
+#: model:ir.actions.act_window,name:real_estate_nacho.realestate_property_tag_action
+#: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__tag_ids
+#: model:ir.ui.menu,name:real_estate_nacho.realestate_menu_tags
+#: model_terms:ir.ui.view,arch_db:real_estate_nacho.realestate_property_tag_list_view
+msgid "Tags"
+msgstr "Etiquetas"
 
 #. module: real_estate_nacho
 #: model:ir.model.fields,field_description:real_estate_nacho.field_realestate_property__user_id

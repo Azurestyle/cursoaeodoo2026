@@ -1,13 +1,58 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem id="realestate_menu_root" name="Real Estate"/>
-    <menuitem id="realestate_menu_properties" name="Properties" parent="realestate_menu_root" action="realestate_property_action"/>
+    <menuitem id="realestate_menu_root"
+        name="Real Estate"
+        sequence="90"
+        web_icon="real_estate_nacho,static/description/icon.png"/>
 
-    <menuitem id="realestate_menu_visits" name="Visits" parent="realestate_menu_root" action="realestate_visit_action"/>
-    <menuitem id="realestate_menu_offers" name="Offers" parent="realestate_menu_root" action="realestate_offer_action"/>
-    <menuitem id="realestate_menu_categories" name="Categories" parent="realestate_menu_root" action="realestate_category_action"/>
-    <menuitem id="realestate_menu_contracts" name="Contracts" parent="realestate_menu_root" action="realestate_contract_action"/>
-    <!-- <menuitem id="realestate_menu_root" name="Real Estate">
-        <menuitem id="realestate_menu_properties" name="Properties" action="realestate_property_action"/>
-    </menuitem> -->
+    <menuitem id="realestate_menu_portfolio"
+        name="Portfolio"
+        parent="realestate_menu_root"
+        sequence="10"/>
+
+    <menuitem id="realestate_menu_properties"
+        name="Properties"
+        parent="realestate_menu_portfolio"
+        action="realestate_property_action"
+        sequence="10"/>
+
+    <menuitem id="realestate_menu_operations"
+        name="Operations"
+        parent="realestate_menu_root"
+        sequence="20"/>
+
+    <menuitem id="realestate_menu_visits"
+        name="Visits"
+        parent="realestate_menu_operations"
+        action="realestate_visit_action"
+        sequence="10"/>
+
+    <menuitem id="realestate_menu_offers"
+        name="Offers"
+        parent="realestate_menu_operations"
+        action="realestate_offer_action"
+        sequence="20"/>
+
+    <menuitem id="realestate_menu_contracts"
+        name="Contracts"
+        parent="realestate_menu_operations"
+        action="realestate_contract_action"
+        sequence="30"/>
+
+    <menuitem id="realestate_menu_configuration"
+        name="Configuration"
+        parent="realestate_menu_root"
+        sequence="90"/>
+
+    <menuitem id="realestate_menu_categories"
+        name="Categories"
+        parent="realestate_menu_configuration"
+        action="realestate_category_action"
+        sequence="10"/>
+
+    <menuitem id="realestate_menu_tags"
+        name="Tags"
+        parent="realestate_menu_configuration"
+        action="realestate_property_tag_action"
+        sequence="20"/>
 </odoo>

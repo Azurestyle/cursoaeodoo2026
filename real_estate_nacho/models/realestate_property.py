@@ -55,6 +55,18 @@ class RealEstateProperty(models.Model):
         inverse_name="property_id",
         string="Offers"
     )
+    contract_ids = fields.One2many(
+        comodel_name="realestate.contract",
+        inverse_name="property_id",
+        string="Contracts"
+    )
+    tag_ids = fields.Many2many(
+        comodel_name="realestate.property.tag",
+        relation="realestate_property_tag_rel",
+        column1="realestate_property_id",
+        column2="realestate_property_tag_id",
+        string="Tags"
+    )
 
     internal_note = fields.Text(string="Internal Note", company_dependent=True)
     company_id = fields.Many2one(
@@ -67,6 +79,7 @@ class RealEstateProperty(models.Model):
     color = fields.Integer(string="Color")
     visit_count = fields.Integer(string="Visit Count", compute="_compute_visit_count")
     incident_count = fields.Integer(string="Incident Count", compute="_compute_incident_count")
+    contract_count = fields.Integer(string="Contract Count", compute="_compute_contract_count")
 
     _reference_uniq = models.Constraint(
         "unique(reference)",
@@ -79,6 +92,10 @@ class RealEstateProperty(models.Model):
                 scheduled_visits = record.visit_ids.filtered(lambda visit: visit.state == 'scheduled')
                 if scheduled_visits:
                     scheduled_visits[0].date = record.next_visit_date
+                   
+    def _compute_contract_count(self):
+        for record in self:
+            record.contract_count = len(record.contract_ids)
 
     def _compute_visit_count(self):
         for record in self:
@@ -157,5 +174,14 @@ class RealEstateProperty(models.Model):
             'context': {'default_property_id': self.id}
         }
 
+    def action_open_contracts(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Contracts',
+            'res_model': 'realestate.contract',
+            'view_mode': 'list,form',
+            'domain': [('property_id', '=', self.id)],
+            'context': {'default_property_id': self.id}
+        }
     # def action_print_property(self):
     #     return self.env.ref('real_estate_nacho.action_report_realestate_property').report_action(self.ids)

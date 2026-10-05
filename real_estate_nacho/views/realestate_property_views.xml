@@ -27,6 +27,7 @@
             <field name="price" optional="show"/>
             <field name="availability" widget="boolean_toggle" optional="show"/>
             <field name="next_visit_date" optional="show"/>
+            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" optional="show"/>
             <field name="stage_id" optional="show"/>
             <field name="user_id" widget="many2one_avatar_user" optional="show"/>
         </list>
@@ -56,6 +57,9 @@
                 <button name="action_open_incidents" type="object" string="Incidents" class="oe_stat_button" icon="fa-exclamation-triangle">
                     <field name="incident_count" string="Incidents" widget="statinfo"/>
                 </button>
+                <button name="action_open_contracts" type="object" string="Contracts" class="oe_stat_button" icon="fa-file-text-o">
+                    <field name="contract_count" string="Contracts" widget="statinfo"/>
+                </button>
                 
             </div>
             <widget name="web_ribbon" title="Reserved" invisible="availability" bg_color="text-bg-warning"/>
@@ -75,6 +79,7 @@
                         <field name="next_visit_date"/>
                         <field name="availability" widget="boolean_toggle"/>
                         <field name="user_id" widget="many2one_avatar_user"/>
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                         <field name="company_id"/>
                     </group>
                 </group>
