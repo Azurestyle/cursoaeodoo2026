@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="realestate_owner_action" model="ir.actions.act_window">
+        <field name="name">Owners</field>
+        <field name="res_model">realestate.owner</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="realestate_owner_list_view" model="ir.ui.view">
+        <field name="name">realestate.owner.list</field>
+        <field name="model">realestate.owner</field>
+        <field name="arch" type="xml">
+            <list string="Owners">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="street"/>
+                <field name="city"/>
+                <field name="zip"/>
+                <field name="country_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="realestate_owner_form_view" model="ir.ui.view">
+        <field name="name">realestate.owner.form</field>
+        <field name="model">realestate.owner</field>
+        <field name="arch" type="xml">
+            <form string="Owner">
+                <sheet>
+                <div class="oe_title">
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                </div>
+                <group>
+                        <field name="email"/>
+                        <field name="phone"/>
+                        <field name="street"/>
+                        <field name="city"/>
+                        <field name="zip"/>
+                        <field name="country_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

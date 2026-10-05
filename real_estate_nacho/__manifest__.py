@@ -17,6 +17,7 @@
         "views/realestate_category_views.xml",
         "views/realestate_contract_views.xml",
         "views/realestate_agent_views.xml",
+        "views/realestate_owner_views.xml",
         "views/realestate_menuitems.xml",
         "views/realestate_property_tag_views.xml",
         "wizard/realestate_property_change_stage.xml",

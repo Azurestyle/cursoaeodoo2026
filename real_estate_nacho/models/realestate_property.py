@@ -23,7 +23,10 @@ class RealEstateProperty(models.Model):
         comodel_name="realestate.agent",
         string="Agent"
     )
-
+    owner_id = fields.Many2one(
+        comodel_name="realestate.owner",
+        string="Owner"
+    )
     currency_id = fields.Many2one(
         comodel_name="res.currency",
         string="Currency",
