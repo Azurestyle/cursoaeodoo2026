@@ -55,4 +55,9 @@
         parent="realestate_menu_configuration"
         action="realestate_property_tag_action"
         sequence="20"/>
+    <menuitem id="realestate_menu_agents"
+        name="Agents"
+        parent="realestate_menu_configuration"
+        action="realestate_agent_action"
+        sequence="30"/>
 </odoo>

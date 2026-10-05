@@ -58,6 +58,15 @@ class RealEstateContract(models.Model):
         "The contract name must be unique."
     )
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+           if not vals.get('name'):
+                vals['name'] = self.env['ir.sequence'].next_by_code('realestate.contract')
+        res = super().create(vals_list)
+        # res. lo que sea
+        return res
+
     def _compute_days_in_progress(self):
         for record in self:
             if record.start_date and record.state == 'progress':

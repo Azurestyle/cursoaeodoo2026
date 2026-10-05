@@ -19,6 +19,10 @@ class RealEstateProperty(models.Model):
         string="User",
         default=lambda self: self.env.user.id
     )
+    agent_id = fields.Many2one(
+        comodel_name="realestate.agent",
+        string="Agent"
+    )
 
     currency_id = fields.Many2one(
         comodel_name="res.currency",

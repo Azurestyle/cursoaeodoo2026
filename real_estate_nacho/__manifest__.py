@@ -8,6 +8,7 @@
     "depends": ["base"],
     "data": [
         "data/ir_cron.xml",
+        "data/ir_sequence.xml",
         "security/real_estate_security.xml",
         "security/ir.model.access.csv",
         "views/realestate_property_views.xml", 
@@ -15,6 +16,7 @@
         "views/realestate_offer_views.xml",
         "views/realestate_category_views.xml",
         "views/realestate_contract_views.xml",
+        "views/realestate_agent_views.xml",
         "views/realestate_menuitems.xml",
         "views/realestate_property_tag_views.xml",
         "wizard/realestate_property_change_stage.xml",
