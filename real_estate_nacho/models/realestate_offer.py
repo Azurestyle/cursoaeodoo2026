@@ -5,6 +5,7 @@ class RealEstateOffer(models.Model):
     _name = "realestate.offer"
     _description = "Offer"
     _rec_name = "partner_id"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     property_id = fields.Many2one(
         comodel_name="realestate.property",

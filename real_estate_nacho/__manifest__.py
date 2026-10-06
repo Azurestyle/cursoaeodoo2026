@@ -5,7 +5,7 @@
     "description": "Module to manage real estate properties, agents, and clients.",
     "author": "Nacho",
     "category": "Real Estate",
-    "depends": ["base"],
+    "depends": ["base", "mail"],
     "data": [
         "data/ir_cron.xml",
         "data/ir_sequence.xml",

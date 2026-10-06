@@ -3,6 +3,7 @@ from odoo import models, fields, api
 class RealEstateProperty(models.Model):
     _name = "realestate.property"
     _description = "Property"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     active = fields.Boolean(string="Active", default=True)
     name = fields.Char(string="Name", required=True)
@@ -11,7 +12,7 @@ class RealEstateProperty(models.Model):
         comodel_name="realestate.category",
         string="Category",
     )
-    price = fields.Monetary(string="Price", currency_field='currency_id')
+    price = fields.Monetary(string="Price", currency_field='currency_id', tracking=True)
     reference = fields.Char(string="Reference", copy=False)
     availability = fields.Boolean(string="Availability", default=True)
     user_id = fields.Many2one(
@@ -36,7 +37,8 @@ class RealEstateProperty(models.Model):
     stage_id = fields.Many2one(
         comodel_name="realestate.property.stage",
         string="Stage",
-        group_expand="_read_group_stage_ids"
+        group_expand="_read_group_stage_ids",
+        tracking=True,
     )
 
     image_ids = fields.One2many(
@@ -120,7 +122,6 @@ class RealEstateProperty(models.Model):
         return self.env['realestate.property.stage'].search([], order='sequence')
     
     def action_create_visit(self):
-        import pdb;pdb.set_trace()
         vals = {
             'property_id': self.id,
             'date': fields.Datetime.now(),
@@ -132,6 +133,7 @@ class RealEstateProperty(models.Model):
         best_offer = self.env['realestate.offer'].search([('property_id', '=', self.id),('state', '=', 'sent')], order='amount desc', limit=1)
         if best_offer:
             best_offer.action_accept()
+        self.message_post(body="Best offer has been accepted.")
 
     def action_delete_refused_offers(self):
         refused_offers = self.env['realestate.offer'].search([('property_id', '=', self.id),('state', '=', 'refused')])
@@ -143,6 +145,9 @@ class RealEstateProperty(models.Model):
             'amount': self.price,
         }
         offer = self.env['realestate.offer'].create(vals)
+        offer.message_post_with_source('mail.message_origin_link',
+                                        render_values={'self':offer, 'origin': self},
+                                        subtype_xmlid='mail.mt_note')
         offer.action_send()
 
     @api.depends('visit_ids.date', 'visit_ids.state')
@@ -167,7 +172,8 @@ class RealEstateProperty(models.Model):
             'res_model': 'realestate.visit',
             'view_mode': 'kanban,list,form',
             'domain': [('property_id', '=', self.id)],
-            'context': {'default_property_id': self.id}
+            'context': {'default_property_id': self.id,
+                        'search_default_Scheduled': 1}
         }
         return action
 
