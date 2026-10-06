@@ -4,6 +4,7 @@ from odoo.exceptions import ValidationError
 class RealEstateContract(models.Model):
     _name = "realestate.contract"
     _description = "Contract"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     _name_uniq = models.Constraint(
         "unique(name)",
@@ -48,7 +49,8 @@ class RealEstateContract(models.Model):
             ('cancelled', 'Cancelled'),
         ],
         string="State",
-        default='draft'
+        default='draft',
+        tracking=True
     )
 
     duration_days = fields.Integer(string="Duration (Days)", 
