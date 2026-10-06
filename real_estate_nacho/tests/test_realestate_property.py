@@ -5,11 +5,9 @@ from odoo.tests import TransactionCase, tagged
 @tagged("post_install", "-at_install")
 class TestRealEstateProperty(TransactionCase):
 
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
-        cls.property = cls.env["realestate.property"].create({
+    def setUp(self):
+        super().setUp()
+        self.property = self.env["realestate.property"].create({
             "name": "Test Property",
             "price": 100000.0,
         })
@@ -22,6 +20,16 @@ class TestRealEstateProperty(TransactionCase):
         self.assertEqual(len(visits), 1)
         self.assertEqual(visits.user_id, self.property.user_id)
         self.assertTrue(visits.date)
+
+    def test_action_reserve(self):
+        self.property.action_reserve()
+        self.assertFalse(self.property.availability)
+        messages = self.env["mail.message"].search([
+            ("model", "=", "realestate.property"),
+            ("res_id", "=", self.property.id),
+            ("body", "like", "reserved"),
+        ])
+        self.assertTrue(messages)
 
     def test_action_accept_best_offer(self):
         offer_low = self.env["realestate.offer"].create({

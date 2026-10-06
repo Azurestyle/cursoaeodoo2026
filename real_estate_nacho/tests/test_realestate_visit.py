@@ -6,11 +6,9 @@ from odoo.tests import TransactionCase, tagged
 @tagged("post_install", "-at_install")
 class TestRealEstateVisit(TransactionCase):
 
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
-        cls.property = cls.env["realestate.property"].create({
+    def setUp(self):
+        super().setUp()
+        self.property = self.env["realestate.property"].create({
             "name": "Test Property",
         })
 

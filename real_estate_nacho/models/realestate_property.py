@@ -107,6 +107,7 @@ class RealEstateProperty(models.Model):
 
     def action_reserve(self):
         self.availability = False
+        self.message_post(body="The property has been reserved.")
 
     def _read_group_stage_ids(self, stages, domain):
         return self.env['realestate.property.stage'].search([], order='sequence')
