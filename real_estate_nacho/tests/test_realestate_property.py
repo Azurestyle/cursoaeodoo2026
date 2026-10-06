@@ -51,3 +51,7 @@ class TestRealEstateProperty(common.TransactionCase):
         self.assertEqual(self.offer_1.state, 'sent')
         self.assertFalse(self.property_1.availability)
         self.assertTrue(self.offer_2.amount > self.offer_1.amount)
+
+    def test_compute_next_visit_date(self):
+        self.property_1._compute_next_visit_date()
+        self.assertEqual(self.property_1.next_visit_date, self.visit_1.date)
