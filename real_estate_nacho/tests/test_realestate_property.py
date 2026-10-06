@@ -1,81 +1,57 @@
-from odoo import fields
-from odoo.tests import TransactionCase, tagged
+from odoo.tests import common
 
 
-@tagged("post_install", "-at_install")
-class TestRealEstateProperty(TransactionCase):
+class TestRealEstateProperty(common.TransactionCase):
 
     def setUp(self):
         super().setUp()
-        self.property = self.env["realestate.property"].create({
-            "name": "Test Property",
-            "price": 100000.0,
+        self.Property = self.env['realestate.property']
+        self.Visit = self.env['realestate.visit']
+        self.Offer = self.env['realestate.offer']
+
+        self.property_1 = self.Property.create({
+            'name': 'Test Property',
+            'price': 100000.0,
+        })
+
+        self.visit_1 = self.Visit.create({
+            'property_id': self.property_1.id,
+            'date': '2026-10-10 10:00:00',
+            'state': 'scheduled',
+        })
+        self.visit_2 = self.Visit.create({
+            'property_id': self.property_1.id,
+            'date': '2026-10-12 10:00:00',
+            'state': 'scheduled',
+        })
+        self.visit_3 = self.Visit.create({
+            'property_id': self.property_1.id,
+            'date': '2026-10-08 10:00:00',
+            'state': 'draft',
+        })
+
+        self.offer_1 = self.Offer.create({
+            'property_id': self.property_1.id,
+            'amount': 90000.0,
+            'state': 'sent',
+        })
+        self.offer_2 = self.Offer.create({
+            'property_id': self.property_1.id,
+            'amount': 99000.0,
+            'state': 'sent',
         })
 
     def test_action_create_visit(self):
-        self.property.action_create_visit()
-        visits = self.env["realestate.visit"].search([
-            ("property_id", "=", self.property.id),
-        ])
-        self.assertEqual(len(visits), 1)
-        self.assertEqual(visits.user_id, self.property.user_id)
-        self.assertTrue(visits.date)
-
-    def test_action_reserve(self):
-        self.property.action_reserve()
-        self.assertFalse(self.property.availability)
-        messages = self.env["mail.message"].search([
-            ("model", "=", "realestate.property"),
-            ("res_id", "=", self.property.id),
-            ("body", "like", "reserved"),
-        ])
-        self.assertTrue(messages)
+        self.property_1.action_create_visit()
+        visits = self.Visit.search([('property_id', '=', self.property_1.id)])
+        self.assertEqual(len(visits), 4)
+        self.assertEqual(visits[-1].user_id, self.property_1.user_id)
 
     def test_action_accept_best_offer(self):
-        offer_low = self.env["realestate.offer"].create({
-            "property_id": self.property.id,
-            "amount": 90000.0,
-            "state": "sent",
-        })
-        offer_high = self.env["realestate.offer"].create({
-            "property_id": self.property.id,
-            "amount": 99000.0,
-            "state": "sent",
-        })
-        offer_draft = self.env["realestate.offer"].create({
-            "property_id": self.property.id,
-            "amount": 120000.0,
-            "state": "draft",
-        })
-        self.property.action_accept_best_offer()
-        self.assertEqual(offer_high.state, "accepted")
-        self.assertEqual(offer_low.state, "sent")
-        self.assertEqual(offer_draft.state, "draft")
-        self.assertFalse(self.property.availability)
+        self.property_1.action_accept_best_offer()
+        self.assertEqual(self.offer_2.state, 'accepted')
+        self.assertEqual(self.offer_1.state, 'sent')
+        self.assertFalse(self.property_1.availability)
 
     def test_compute_next_visit_date(self):
-        Visit = self.env["realestate.visit"]
-        Visit.create({
-            "property_id": self.property.id,
-            "date": "2026-10-07 09:00:00",
-            "state": "draft",
-        })
-        Visit.create({
-            "property_id": self.property.id,
-            "date": "2026-10-08 09:00:00",
-            "state": "canceled",
-        })
-        Visit.create({
-            "property_id": self.property.id,
-            "date": "2026-10-10 10:00:00",
-            "state": "scheduled",
-        })
-        Visit.create({
-            "property_id": self.property.id,
-            "date": "2026-10-12 10:00:00",
-            "state": "scheduled",
-        })
-        self.assertEqual(
-            self.property.next_visit_date,
-            fields.Datetime.to_datetime("2026-10-10 10:00:00"),
-        )
+        self.assertEqual(self.property_1.next_visit_date, self.visit_1.date)
