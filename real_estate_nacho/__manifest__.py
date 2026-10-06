@@ -5,7 +5,7 @@
     "description": "Module to manage real estate properties, agents, and clients.",
     "author": "Nacho",
     "category": "Real Estate",
-    "depends": ["base"],
+    "depends": ["base", "mail"],
     "data": [
         "security/real_estate_security.xml",
         "security/ir.model.access.csv",

@@ -86,6 +86,7 @@
                 <filter name="Scheduled" string="Scheduled" domain="[('state','=','scheduled')]"/>
                 <filter name="Done" string="Done" domain="[('state','=','done')]"/>
                 <filter name="Canceled" string="Canceled" domain="[('state','=','canceled')]"/>
+                <filter name="pending" string="Pending" domain="[('state','in',['draft','scheduled'])]"/>
                 <filter name="group_by_user" string="User" context="{'group_by':'user_id'}"/>
                 <filter name="group_by_property" string="Property" context="{'group_by':'property_id'}"/>
                 <filter name="group_by_state" string="State" context="{'group_by':'state'}"/>

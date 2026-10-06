@@ -4,6 +4,7 @@ from odoo import api, fields, models
 class RealEstateProperty(models.Model):
     _name = "realestate.property"
     _description = "Property"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     _reference_uniq = models.Constraint(
         "unique(reference)",
@@ -25,9 +26,9 @@ class RealEstateProperty(models.Model):
         column2="realestate_property_tag_id",
         string="Tags",
     )
-    price = fields.Monetary(string="Price", currency_field="currency_id")
+    price = fields.Monetary(string="Price", currency_field="currency_id", tracking=True)
     reference = fields.Char(string="Reference", copy=False)
-    availability = fields.Boolean(string="Availability", default=True)
+    availability = fields.Boolean(string="Availability", default=True, tracking=True)
     user_id = fields.Many2one(
         comodel_name="res.users",
         string="User",
@@ -55,7 +56,8 @@ class RealEstateProperty(models.Model):
     stage_id = fields.Many2one(
         comodel_name="realestate.property.stage",
         string="Stage",
-        group_expand="_read_group_stage_ids"
+        group_expand="_read_group_stage_ids",
+        tracking=True
     )
 
     color = fields.Integer(string="Color")
@@ -173,7 +175,10 @@ class RealEstateProperty(models.Model):
             'res_model': 'realestate.visit',
             'view_mode': 'list,form',
             'domain': [('property_id', '=', self.id)],
-            'context': {'default_property_id': self.id},
+            'context': {
+                'default_property_id': self.id,
+                'search_default_pending': 1,
+            },
         }
 
     def action_open_incidents(self):
