@@ -43,9 +43,8 @@ class TestRealEstateProperty(common.TransactionCase):
 
     def test_action_create_visit(self):
         self.property_1.action_create_visit()
-        visits = self.Visit.search([('property_id', '=', self.property_1.id)])
-        self.assertEqual(len(visits), 4)
-        self.assertEqual(visits[-1].user_id, self.property_1.user_id)
+        self.assertEqual(len(self.property_1.visit_ids), 4)
+        self.assertEqual(self.property_1.visit_ids[-1].user_id, self.property_1.user_id)
 
     def test_action_accept_best_offer(self):
         self.property_1.action_accept_best_offer()
