@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="realestate_partner_wizard_view_form" model="ir.ui.view">
+        <field name="name">realestate.partner.wizard.form</field>
+        <field name="model">realestate.partner.wizard</field>
+        <field name="arch" type="xml">
+            <form string="New Contact">
+                <p class="text-muted">
+                    Complete the key fields to create the contact. The required
+                    ones are marked.
+                </p>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="phone"/>
+                        <field name="email"/>
+                    </group>
+                    <group>
+                        <field name="street"/>
+                        <field name="city"/>
+                        <field name="zip"/>
+                        <field name="country_id"/>
+                        <field name="category_id" widget="many2many_tags"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_create_partner" string="Create Contact" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="realestate_partner_wizard_action" model="ir.actions.act_window">
+        <field name="name">New Contact (wizard)</field>
+        <field name="res_model">realestate.partner.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="base.model_res_partner"/>
+        <field name="binding_view_types">list,kanban,form</field>
+    </record>
+
+    <menuitem id="realestate_menu_contact_wizard"
+        name="New Contact (wizard)"
+        parent="contacts.menu_contacts"
+        action="realestate_partner_wizard_action"
+        sequence="3"/>
+
+</odoo>

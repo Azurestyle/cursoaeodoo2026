@@ -5,7 +5,7 @@
     "description": "Module to manage real estate properties, agents, and clients.",
     "author": "Nacho",
     "category": "Real Estate",
-    "depends": ["base", "mail"],
+    "depends": ["base", "mail", "contacts"],
     "data": [
         "security/real_estate_security.xml",
         "security/ir.model.access.csv",
@@ -22,6 +22,7 @@
         "wizard/realestate_property_change_stage_views.xml",
         "wizard/realestate_property_schedule_visits_views.xml",
         "wizard/realestate_visit_change_state_views.xml",
+        "wizard/realestate_partner_wizard_views.xml",
         "report/realestate_property_report.xml",
         "report/realestate_property_simple_report.xml",
         "report/realestate_contract_report.xml",
