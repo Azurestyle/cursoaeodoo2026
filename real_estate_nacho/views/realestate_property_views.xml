@@ -47,7 +47,6 @@
             <button name="action_delete_refused_offers" groups="real_estate_nacho.group_real_estate_manager" class="btn-danger" string="Delete Refused Offers" type="object" />
             <button name="action_create_offer" context="{'test': 'Imagen', 'offer': True}" class="btn-primary" string="Create Offer" type="object" />
             <button name="action_cancel_pending_visits" groups="real_estate_nacho.group_real_estate_manager" class="btn-warning" string="Cancel Pending Visits" type="object" />
-            <!-- <button name="%(real_estate_nacho.realestate_property_schedule_visits_action)d" string="Schedule Visits" type="action" class="btn-secondary"/> -->
             <field name="stage_id" widget="statusbar"/>
         </header>
             <sheet>

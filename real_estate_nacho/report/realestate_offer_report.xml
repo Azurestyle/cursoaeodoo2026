@@ -6,7 +6,6 @@
         <field name="model">realestate.offer</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">real_estate_nacho.report_realestate_offer</field>
-        <field name="report_file">real_estate_nacho.report_realestate_offer</field>
         <field name="print_report_name">'Offer - %s' % (object.property_id.name)</field>
         <field name="binding_model_id" ref="model_realestate_offer"/>
         <field name="binding_type">report</field>

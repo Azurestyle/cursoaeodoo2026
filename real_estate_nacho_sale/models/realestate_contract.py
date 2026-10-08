@@ -1,4 +1,5 @@
-from odoo import Command, models, fields, api
+from odoo import api, fields, models
+from odoo.fields import Command
 
 
 class RealEstateContract(models.Model):

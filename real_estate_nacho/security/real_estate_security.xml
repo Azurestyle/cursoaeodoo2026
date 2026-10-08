@@ -23,19 +23,5 @@
         <field name="comment">Real Estate Manager Group</field>
     </record>
 
-    <record model="ir.rule" id="real_estate_rule_user">
-        <field name="name">Personal Properties</field>
-        <field name="model_id" ref="model_realestate_property"/>
-        <field name="domain_force">['|',('user_id','=',user.id),('user_id','=',False)]</field>
-        <field name="groups" eval="[(4, ref('group_real_estate_user'))]"/>
-    </record>
-
-    <record model="ir.rule" id="real_estate_rule_manager">
-        <field name="name">All Properties</field>
-        <field name="model_id" ref="model_realestate_property"/>
-        <field name="domain_force">[(1,'=',1)]</field>
-        <field name="groups" eval="[(4, ref('group_real_estate_manager'))]"/>
-    </record>
-
     </data>
 </odoo>

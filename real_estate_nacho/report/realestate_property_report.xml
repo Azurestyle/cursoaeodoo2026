@@ -20,7 +20,6 @@
     <field name="model">realestate.property</field>
     <field name="report_type">qweb-pdf</field>
     <field name="report_name">real_estate_nacho.report_realestate_property</field>
-    <field name="report_file">real_estate_nacho.report_realestate_property</field>
     <field name="print_report_name">object.reference</field>
     <field name="paperformat_id" ref="paperformat_realestate_property"/>
     <field name="binding_model_id" ref="model_realestate_property"/>
