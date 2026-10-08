@@ -10,5 +10,6 @@
         "data/ir_sequence.xml",
         "views/realestate_contract_views.xml",
         "views/sale_order_views.xml",
+        "views/product_template_views.xml",
     ],
 }

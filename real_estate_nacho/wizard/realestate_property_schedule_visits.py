@@ -35,6 +35,10 @@ class RealEstatePropertyScheduleVisits(models.TransientModel):
             })
             current_date += timedelta(days=1)
         visits = self.env["realestate.visit"].create(vals_list)
+        for visit in visits:
+            visit.message_post(
+                body=f"Visit scheduled for {self.property_id.display_name}."
+            )
         return {
             "type": "ir.actions.act_window",
             "name": "Visits",

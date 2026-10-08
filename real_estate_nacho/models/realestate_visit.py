@@ -4,6 +4,7 @@ class RealEstateVisit(models.Model):
     _name = "realestate.visit"
     _description = "Visit"
     _rec_name = "property_id"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     property_id = fields.Many2one(
         comodel_name="realestate.property",
@@ -32,6 +33,7 @@ class RealEstateVisit(models.Model):
         ],
         string="State",
         default="draft",
+        tracking=True,
         group_expand="_group_expand_state"
     )
 
